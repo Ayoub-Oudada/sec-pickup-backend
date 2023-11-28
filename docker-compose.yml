@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  secpickupvolume:
+    driver: local
+
+services:
+  # mysql server
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: aod
+      MYSQL_DATABASE: secpickup
+      MYSQL_PASSWORD: pass
+    volumes:
+      - 'secpickupvolume:/data'
