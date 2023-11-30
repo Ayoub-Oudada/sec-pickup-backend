@@ -24,4 +24,8 @@ public class Trajet extends BaseEntity {
 
     @OneToMany(mappedBy = "trajet")
     private List<Assistante> assistantes;
+
+
+    @OneToMany(mappedBy = "trajet")
+    private List<Rue> rue;
 }

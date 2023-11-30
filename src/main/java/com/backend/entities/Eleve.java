@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "eleves")
@@ -22,6 +23,7 @@ public class Eleve extends BaseEntity {
 
     private int niveau;
     private String cne;
+    private String domicile;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
@@ -30,4 +32,16 @@ public class Eleve extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @ManyToMany(mappedBy = "eleves")
+    private List<Situation> situations;
+
+    @ManyToOne
+    @JoinColumn(name = "ecole_id")
+    private Ecole ecole;
+
+    @ManyToOne
+    @JoinColumn(name = "rue_id")
+    private Rue rue;
+
 }

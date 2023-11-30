@@ -1,23 +1,28 @@
 package com.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Entity
-@Table(name = "administration")
+@Table(name = "ecoles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Administration extends BaseEntity {
+public class Ecole extends BaseEntity {
     private String service;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "ecole")
+    private List<Assistante> assistantes;
+
+    @OneToMany(mappedBy = "ecole")
+    private List<Eleve> eleves;
 }
