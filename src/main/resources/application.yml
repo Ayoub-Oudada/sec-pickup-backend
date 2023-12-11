@@ -1,10 +1,21 @@
 
 spring:
   datasource:
-    username: omar
-    password: omar
+    username: root
+    password:
     url: jdbc:mysql://localhost:3306/secpickup
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#      dialect: org.hibernate.dialect.MySQLDialect
+#
+jpa:
+  hibernate:
+    ddl-auto: update
+  show-sql: true
+  properties:
     hibernate:
-      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQLDialect
+      format_sql: true
+  open-in-view: false

@@ -16,11 +16,13 @@ public class UsersController {
 
     @Autowired
     public UsersController(UsersRepository usersRepository) {
+
         this.usersRepository = usersRepository;
     }
 
     @GetMapping
     public ResponseEntity<Object> index() {
+
         return ResponseEntity.ok(usersRepository.findAll());
     }
 }
