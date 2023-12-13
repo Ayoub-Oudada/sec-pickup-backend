@@ -15,14 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UsersController {
-   // private final UsersRepository usersRepository;
-
-    //@Autowired
-    //public UsersController(UsersRepository usersRepository) { this.usersRepository = usersRepository;    }
-
-    //@GetMapping
-  //  public ResponseEntity<Object> index() {    return ResponseEntity.ok(usersRepository.findAll());     }
-
 
     private final UsersService userService;
     @Autowired
