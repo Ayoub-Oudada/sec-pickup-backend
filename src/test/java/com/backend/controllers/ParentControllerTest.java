@@ -100,7 +100,6 @@ public class ParentControllerTest {
                 faker.internet().emailAddress(),
                 1L);
 
-        when(parentsService.parentExist(1L)).thenReturn(true);
         when(parentsService.showParent(1L)).thenReturn(parent);
 
         mockMvc
@@ -113,7 +112,6 @@ public class ParentControllerTest {
 
     @Test
     public void itShouldReturn404WhenIdIsUnknown() throws Exception {
-        when(parentsService.parentExist(2L)).thenReturn(false);
         when(parentsService.showParent(2L)).thenThrow(ResourceNotFoundException.class);
 
         mockMvc
@@ -123,7 +121,6 @@ public class ParentControllerTest {
 
     @Test
     public void itShouldReturnNoContentResponseWhenDeletingParent() throws Exception {
-        when(parentsService.parentExist(1L)).thenReturn(true);
 
         mockMvc.perform(delete("/api/parents/1"))
                 .andExpect(status().isNoContent());
