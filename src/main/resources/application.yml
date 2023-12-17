@@ -2,8 +2,12 @@ spring:
   datasource:
     username: aod
     password: pass
-    url: jdbc:mysql://localhost:3306/secpickup
+    url: jdbc:mysql://localhost:3306/secpickup?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
+server:
+  port: 9000
+  error:
+    include-message: always
