@@ -21,6 +21,7 @@ public class UsersService {
         this.usersRepository = usersRepository;
     }
 
+
     public List<User> GetUsers(){
         return usersRepository.findAll();
 

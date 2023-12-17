@@ -46,11 +46,11 @@ public class UsersController {
     public User findUser(@RequestBody User user) {
     try {
         userService.SearchUser(user.getPassword(), user.getUsername(), user.getType());
-
+           // userService.FindUser(password, username,type);
            ResponseEntity.ok("Authentication successful");
             return user;
         } catch (IllegalStateException e) {
-             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Authentication failed");
+             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Authentication failed");  
         }
     return null;
     }
