@@ -1,41 +1,95 @@
 package com.backend.integratedTests;
 
+import com.backend.controllers.AssistanteController;
 import com.backend.dtos.AssistanteDto;
-import com.backend.repositories.AssistanteRepository;
-import com.backend.services.interfaces.AssistanteServiceInt;
+import com.backend.services.AssistanteService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@WebMvcTest(AssistanteController.class)
+@RunWith(SpringRunner.class)
 public class AssistanteControllerIntegrationTest {
 
-    @Mock
-    private AssistanteRepository assistanteRepository;
 
     @InjectMocks
-    private AssistanteServiceInt assistanteService;
+    private AssistanteController assistanteController;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @MockBean
+    private AssistanteService assistanteService;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+    private Faker faker = new Faker();
+
+    @Test
+    public void itCanGetAllAssistantes() throws Exception {
+        AssistanteDto assistante = createAssistante(
+                faker.name().firstName(),
+                faker.name().lastName(),
+                faker.code().asin()
+        );
+
+        when(assistanteService.findAll()).thenReturn(List.of(assistante));
+
+        mockMvc
+                .perform(get("/api/assistantes"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(1)))
+                .andExpect(jsonPath("$[0].nom", is(assistante.getNom())))
+                .andExpect(jsonPath("$[0].cni", is(assistante.getCni())));
     }
 
     @Test
-    void save() {
-        AssistanteDto assistanteDto = new AssistanteDto(); // create a sample DTO
+    public void itCanCreateANewAssistante() throws Exception {
+        AssistanteDto assistante = createAssistante(
+                faker.name().firstName(),
+                faker.name().lastName(),
+                faker.code().asin()
+        );
+        System.out.println(assistante);
 
-        when(assistanteRepository.save(any())).thenReturn(AssistanteDto.toEntity(assistanteDto));
+        when(assistanteService.save(assistante)).thenReturn(null);
 
-        AssistanteDto savedAssistanteDto = assistanteService.save(assistanteDto);
+        mockMvc
+                .perform(post("/api/assistantes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(assistante)))
+                .andExpect(status().isCreated());
 
-        assertEquals(assistanteDto, savedAssistanteDto);
+    }
 
-        verify(assistanteRepository, times(1)).save(any());
+    private AssistanteDto createAssistante(String prenom,
+                                           String nom,
+                                           String cni) {
+        return AssistanteDto.builder()
+                .nom(nom)
+                .prenom(prenom)
+                .cni(cni)
+                .build();
     }
 }
