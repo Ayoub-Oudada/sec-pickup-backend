@@ -1,5 +1,8 @@
 package com.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +26,11 @@ public class Parent extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
+
     @OneToMany(mappedBy = "parent")
+    @JsonManagedReference
     private List<Eleve> eleves;
 }
