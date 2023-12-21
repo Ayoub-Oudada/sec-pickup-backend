@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,7 +24,7 @@ public class TrajetDto {
     @UniqueField(message = "a trajet with this name already exists", fieldName = "libTrajet", repository = TrajetsRepository.class)
     private String libTrajet;
 
-    private List<Assistante> assistantes;
+//    private List<AssistanteDto> assistantes = new ArrayList<>();
 
-    private List<Rue> rue;
+//    private List<Rue> rue = new ArrayList<>();
 }
