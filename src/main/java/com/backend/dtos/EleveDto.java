@@ -26,13 +26,9 @@ public class EleveDto {
     private int niveau;
     private String domicile;
     private Parent parent;
-    private Address address;
     private List<Situation> situations;
     private Ecole ecole;
     private Rue rue;
-
-
-
 
 
     public static Eleve toEntity(EleveDto eleveDto) {
@@ -49,7 +45,6 @@ public class EleveDto {
         eleve.setNiveau(eleveDto.getNiveau());
         eleve.setDomicile(eleveDto.getDomicile());
         eleve.setParent(eleveDto.getParent());
-        eleve.setAddress(eleveDto.getAddress());
         eleve.setEcole(eleveDto.getEcole());
 
         return eleve;
@@ -70,7 +65,6 @@ public class EleveDto {
                 .niveau(eleve.getNiveau())
                 .domicile(eleve.getDomicile())
                 .parent(eleve.getParent())
-                .address(eleve.getAddress())
                 .ecole(eleve.getEcole())
                 .build();
     }

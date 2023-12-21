@@ -1,7 +1,6 @@
 package com.backend.services;
 
 
-
 import com.backend.dtos.EleveDto;
 import com.backend.entities.Eleve;
 import com.backend.repositories.EleveRepository;
@@ -21,31 +20,28 @@ public class EleveService implements EleveServiceInt {
     private EleveRepository eleveRepository;
 
     @Autowired
-    public EleveService(EleveRepository eleveRepository)
-    {
+    public EleveService(EleveRepository eleveRepository) {
         this.eleveRepository = eleveRepository;
     }
 
     @Override
-    public EleveDto save(EleveDto eleveDto)
-    {
-        return  EleveDto.fromEntity(
+    public EleveDto save(EleveDto eleveDto) {
+        return EleveDto.fromEntity(
                 eleveRepository.save(EleveDto.toEntity(eleveDto))
         );
     }
 
     @Override
     public EleveDto findById(Long id) {
-        if(id == null)
-        {
+        if (id == null) {
             log.error("Eleve Id is null");
             return null;
         }
 
         return eleveRepository.findById(id)
                 .map(EleveDto::fromEntity)
-                .orElseThrow(()-> new EntityNotFoundException(
-                        "Aucun Eleve avec l'id = "+id+ " n'est trouve dans la BDD"
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Aucun Eleve avec l'id = " + id + " n'est trouve dans la BDD"
                 ));
     }
 
@@ -58,13 +54,13 @@ public class EleveService implements EleveServiceInt {
 
     @Override
     public void delete(Long id) {
-        if(id == null)
-        {
+        if (id == null) {
             log.error("Eleve Id is null");
             return;
         }
         eleveRepository.deleteById(id);
     }
+
     @Transactional
     public EleveDto updateEleve(Long id, EleveDto updatedEleveDto) {
         // Fetch the existing Eleve entity from the database
@@ -79,7 +75,6 @@ public class EleveService implements EleveServiceInt {
         existingEleve.setNiveau(updatedEleveDto.getNiveau());
         existingEleve.setDomicile(updatedEleveDto.getDomicile());
         existingEleve.setParent(updatedEleveDto.getParent());
-        existingEleve.setAddress(updatedEleveDto.getAddress());
         existingEleve.setEcole(updatedEleveDto.getEcole());
 
         // Save the updated Eleve entity back to the database

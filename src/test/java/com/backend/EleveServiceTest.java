@@ -1,4 +1,5 @@
 package com.backend;
+
 import com.backend.dtos.EleveDto;
 import com.backend.entities.*;
 import com.backend.repositories.EleveRepository;
@@ -45,7 +46,6 @@ public class EleveServiceTest {
         assertEquals(eleveDto.getNiveau(), result.getNiveau());
         assertEquals(eleveDto.getDomicile(), result.getDomicile());
         assertEquals(eleveDto.getParent(), result.getParent());
-        assertEquals(eleveDto.getAddress(), result.getAddress());
         assertEquals(eleveDto.getSituations(), result.getSituations());
         assertEquals(eleveDto.getEcole(), result.getEcole());
 
@@ -68,7 +68,6 @@ public class EleveServiceTest {
         assertEquals(eleve.getNiveau(), result.getNiveau());
         assertEquals(eleve.getDomicile(), result.getDomicile());
         assertEquals(eleve.getParent(), result.getParent());
-        assertEquals(eleve.getAddress(), result.getAddress());
         assertEquals(eleve.getEcole(), result.getEcole());
 
         verify(eleveRepository, times(1)).findById(eleveId);
@@ -132,7 +131,6 @@ public class EleveServiceTest {
 //                .ecole(new Ecole())
                 .build();
     }
-
 
 
     private Eleve createSampleEleve() {
