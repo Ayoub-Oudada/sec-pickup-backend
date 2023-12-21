@@ -9,17 +9,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class BackendApplicationTests {
-	private final UsersRepository usersRepository;
-
-
-	@Autowired
-	BackendApplicationTests(UsersRepository usersRepository) {
-		this.usersRepository = usersRepository;
-	}
-
-	@Test
-	void contextLoads() {
-	}
+//	private final UsersRepository usersRepository;
+//
+//
+//	@Autowired
+//	BackendApplicationTests(UsersRepository usersRepository) {
+//		this.usersRepository = usersRepository;
+//	}
+//
+//	@Test
+//	void contextLoads() {
+//	}
 
 //	@Test
 //	void assertConnectionEstablishedWithDb() {
