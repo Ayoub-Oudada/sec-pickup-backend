@@ -29,9 +29,6 @@ public class Eleve extends BaseEntity {
     @JoinColumn(name = "parent_id")
     private Parent parent;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
 
     @ManyToMany(mappedBy = "eleves")
     private List<Situation> situations;

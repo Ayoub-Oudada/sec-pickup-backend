@@ -1,9 +1,11 @@
 package com.backend.services;
 
 import com.backend.dtos.AssistanteDto;
+import com.backend.entities.Assistante;
 import com.backend.repositories.AssistanteRepository;
 import com.backend.services.interfaces.AssistanteServiceInt;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @Slf4j
 public class AssistanteService implements AssistanteServiceInt {
 
@@ -61,5 +64,31 @@ public class AssistanteService implements AssistanteServiceInt {
             return;
         }
         assistanteRepository.deleteById(id);
+    }
+
+
+    @Override
+    public AssistanteDto updateAssistante(Long id, AssistanteDto assistanteDto) {
+
+        if( id == null)
+        {
+            log.error("Assistante Id is null");
+            return null;
+        }
+
+        Assistante existingAssistante = assistanteRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Aucune assistante avec l'id = "+id+ " n'est trouvé dans la BDD"
+                        )
+                );
+        existingAssistante.setNom(assistanteDto.getNom());
+        existingAssistante.setPrenom(assistanteDto.getPrenom());
+        existingAssistante.setCni(assistanteDto.getCni());
+
+        Assistante assistante = assistanteRepository.save(existingAssistante);
+
+        return ass
+
     }
 }

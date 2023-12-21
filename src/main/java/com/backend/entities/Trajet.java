@@ -19,8 +19,7 @@ public class Trajet extends BaseEntity {
     @Column(name = "lib_trajet")
     private String libTrajet;
 
-    @OneToMany(mappedBy = "trajet")
-    private List<Address> addresses;
+
 
     @OneToMany(mappedBy = "trajet")
     private List<Assistante> assistantes;

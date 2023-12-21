@@ -9,6 +9,8 @@ public interface AssistanteServiceInt {
 
     AssistanteDto findById(Long id);
 
+    AssistanteDto updateAssistante(Long id, AssistanteDto assistanteDto);
+
     List<AssistanteDto> findAll();
 
     void delete(Long id);

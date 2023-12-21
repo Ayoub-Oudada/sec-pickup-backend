@@ -29,9 +29,19 @@ public class AssistanteController {
        return assistanteService.save(assistanteDto);
     }
 
+    @GetMapping(value = "/assistantes/{idAssistante}")
+    public AssistanteDto findById(@PathVariable("idAssitante") Long idAssistante){
+        return assistanteService.findById(idAssistante);
+    }
+
     @GetMapping(value="/assistantes")
     public List<AssistanteDto> findAll()
     {
         return assistanteService.findAll();
     }
+
+
+    @PutMapping(value = "/assistantes")
+    public List<AssistanteDto> updateAssistante() { return assistanteService.updateAssistante()}
+
 }
