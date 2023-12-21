@@ -20,11 +20,7 @@ public class Trajet extends BaseEntity {
     private String libTrajet;
 
     @OneToMany(mappedBy = "trajet")
-    private List<Address> addresses;
-
-    @OneToMany(mappedBy = "trajet")
     private List<Assistante> assistantes;
-
 
     @OneToMany(mappedBy = "trajet")
     private List<Rue> rue;
