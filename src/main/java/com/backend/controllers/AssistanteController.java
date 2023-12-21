@@ -1,6 +1,5 @@
 package com.backend.controllers;
 
-
 import com.backend.dtos.AssistanteDto;
 import com.backend.services.AssistanteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +11,23 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping(value = "/api")
 public class AssistanteController {
     private AssistanteService assistanteService;
 
     @Autowired
-    public AssistanteController(AssistanteService assistanteService)
-    {
+    public AssistanteController(AssistanteService assistanteService) {
         this.assistanteService = assistanteService;
     }
 
-    @PostMapping(value="/assistantes")
+    @PostMapping(value = "/assistantes")
     @ResponseStatus(HttpStatus.CREATED)
-    public AssistanteDto save(@RequestBody AssistanteDto assistanteDto)
-    {
-       return assistanteService.save(assistanteDto);
+    public AssistanteDto save(@RequestBody AssistanteDto assistanteDto) {
+        return assistanteService.save(assistanteDto);
     }
 
-    @GetMapping(value="/assistantes")
-    public List<AssistanteDto> findAll()
-    {
+    @GetMapping(value = "/assistantes")
+    public List<AssistanteDto> findAll() {
         return assistanteService.findAll();
     }
 }
