@@ -80,7 +80,6 @@ public class EleveService implements EleveServiceInt {
         existingEleve.setDomicile(updatedEleveDto.getDomicile());
         existingEleve.setParent(updatedEleveDto.getParent());
         existingEleve.setAddress(updatedEleveDto.getAddress());
-        existingEleve.setSituations(updatedEleveDto.getSituations());
         existingEleve.setEcole(updatedEleveDto.getEcole());
 
         // Save the updated Eleve entity back to the database

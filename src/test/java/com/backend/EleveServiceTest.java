@@ -69,7 +69,6 @@ public class EleveServiceTest {
         assertEquals(eleve.getDomicile(), result.getDomicile());
         assertEquals(eleve.getParent(), result.getParent());
         assertEquals(eleve.getAddress(), result.getAddress());
-        assertEquals(eleve.getSituations(), result.getSituations());
         assertEquals(eleve.getEcole(), result.getEcole());
 
         verify(eleveRepository, times(1)).findById(eleveId);

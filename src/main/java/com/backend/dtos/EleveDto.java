@@ -50,7 +50,6 @@ public class EleveDto {
         eleve.setDomicile(eleveDto.getDomicile());
         eleve.setParent(eleveDto.getParent());
         eleve.setAddress(eleveDto.getAddress());
-        eleve.setSituations(eleveDto.getSituations());
         eleve.setEcole(eleveDto.getEcole());
 
         return eleve;
@@ -72,7 +71,6 @@ public class EleveDto {
                 .domicile(eleve.getDomicile())
                 .parent(eleve.getParent())
                 .address(eleve.getAddress())
-                .situations(eleve.getSituations())
                 .ecole(eleve.getEcole())
                 .build();
     }
