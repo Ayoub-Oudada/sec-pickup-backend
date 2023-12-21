@@ -88,7 +88,7 @@ public class AssistanteService implements AssistanteServiceInt {
 
         Assistante assistante = assistanteRepository.save(existingAssistante);
 
-        return ass
+        return AssistanteDto.fromEntity(assistante);
 
     }
 }
