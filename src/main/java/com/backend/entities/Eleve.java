@@ -1,9 +1,6 @@
 package com.backend.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,32 +25,23 @@ public class Eleve extends BaseEntity {
     private String cne;
     private String domicile;
 
-
-
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    @JsonBackReference
     private Parent parent;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "address_id")
     private Address address;
 
-
-   @ManyToOne
-   @JoinColumn(name = "situation_id")
-   @JsonBackReference
-   private Situation situation;
+    @ManyToMany(mappedBy = "eleves")
+    private List<Situation> situations;
 
     @ManyToOne
     @JoinColumn(name = "ecole_id")
-    @JsonIgnore
     private Ecole ecole;
 
     @ManyToOne
     @JoinColumn(name = "rue_id")
-    @JsonIgnore
     private Rue rue;
 
 }

@@ -23,16 +23,11 @@ public class Situation extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Situations situation;
 
-   /* @ManyToMany
+    @ManyToMany
     @JoinTable(
             name = "eleves_situations",
             joinColumns = @JoinColumn(name = "eleve_id"),
             inverseJoinColumns = @JoinColumn(name = "situation_id")
     )
-    private List<Eleve> eleves;*/
-
-    @OneToMany(mappedBy = "situation")
     private List<Eleve> eleves;
-
-
 }
