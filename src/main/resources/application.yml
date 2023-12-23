@@ -1,8 +1,8 @@
 
 spring:
   datasource:
-    username: root
-    password:
+    username: aod
+    password: pass
     url: jdbc:mysql://localhost:3306/secpickupNew?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
