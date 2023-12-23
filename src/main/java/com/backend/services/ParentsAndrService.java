@@ -1,5 +1,6 @@
 package com.backend.services;
 
+import com.backend.entities.Eleve;
 import com.backend.entities.Parent;
 import com.backend.entities.UserAccountType;
 import com.backend.repositories.ParentAndrRepository;
@@ -71,12 +72,12 @@ public class ParentsAndrService {
         }
     }
 
-    public Parent SearchParentByUsername_Type( String username,UserAccountType type ) {
+    public List<Eleve> SearchParentByUsername_Type( String username,UserAccountType type ) {
 
-        Optional<Parent> parentOptional =parentRepository.FindParentByUsernameTp (username,type);
+        Optional<List<Eleve>> parentOptional =parentRepository.FindParentByUsernameTp (username,type);
         if( parentOptional.isPresent()){
-            Parent parent = parentOptional.get();
-           return parent;
+            List<Eleve> e = parentOptional.get();
+           return e;
             //
         }else{throw new IllegalStateException("Erreur");}
         //usersRepository.deleteById(userId);

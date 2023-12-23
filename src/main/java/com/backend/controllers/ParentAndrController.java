@@ -1,5 +1,6 @@
 package com.backend.controllers;
 
+import com.backend.entities.Eleve;
 import com.backend.entities.Parent;
 import com.backend.entities.UserAccountType;
 import com.backend.services.ParentsAndrService;
@@ -45,8 +46,8 @@ public class ParentAndrController {
         parentsService.updateParent (parentId, nom,prenom,cni);
     }
     @PostMapping ("/find")
-    public Parent  SearchParentByUsernameType( @RequestParam(required=false) String username,  @RequestParam(required=false)  UserAccountType type ){
-        Parent p = parentsService.SearchParentByUsername_Type(username,type);
+    public List<Eleve>  SearchParentByUsernameType(@RequestParam(required=false) String username, @RequestParam(required=false)  UserAccountType type ){
+        List<Eleve> p = parentsService.SearchParentByUsername_Type(username,type);
         return p;
     }
 
