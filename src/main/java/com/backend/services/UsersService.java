@@ -66,6 +66,23 @@ public class UsersService {
             user.setPassword(password);
         }
     }
+    @Transactional
+    public void updateUserPassword(Long userId, String oldPassword, String newPassword) {
+        User user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("User with id " + userId + " does not exist"));
+
+        if (oldPassword != null &&
+                oldPassword.length() > 0 &&
+                !Objects.equals(oldPassword, user.getPassword())) {
+            throw new IllegalStateException("Invalid old password");
+        }
+
+        if (newPassword != null &&
+                newPassword.length() > 0 &&
+                !Objects.equals(user.getPassword(), newPassword)) {
+            user.setPassword(newPassword);
+        }
+    }
 
     public User SearchUser(String password, String username,UserAccountType type ) {
 

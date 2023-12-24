@@ -42,7 +42,16 @@ public class UsersController {
             @RequestParam(required = false) String password) {
         userService.updateUser(UserId, username, password);
     }
+    @PutMapping("/{userId}/updatePassword")
+    public ResponseEntity<String> updateUserPassword(
+            @PathVariable("userId") Long userId,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
 
+        userService.updateUserPassword(userId, oldPassword, newPassword);
+
+        return ResponseEntity.ok("Password updated successfully");
+    }
     @PostMapping("/Auth")
 
     public User findUser(@RequestBody User user) {
