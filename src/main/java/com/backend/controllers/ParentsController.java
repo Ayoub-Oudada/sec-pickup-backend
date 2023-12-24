@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/parents")
 public class ParentsController {
@@ -21,7 +22,7 @@ public class ParentsController {
         this.parentsService = parentsService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ParentDto>> index() {
         return ResponseEntity.ok(parentsService.getAllParents());
     }
