@@ -1,14 +1,15 @@
+
 spring:
   datasource:
-    username: omar
-    password: omar
-    url: jdbc:mysql://localhost:3306/secpickup?createDatabaseIfNotExist=true
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3306/secpickupNew?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
 server:
   address: 0.0.0.0
-  port: 9000
+  port: 8080
   error:
     include-message: always
