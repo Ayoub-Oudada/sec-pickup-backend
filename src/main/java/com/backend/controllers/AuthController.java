@@ -20,6 +20,14 @@ public class AuthController {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping("/register")
+    public void register() {
+        usersRepository.save(User.builder()
+                .username("ayoub@test.com")
+                .password(passwordEncoder.encode("pass"))
+                .build());
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(authService.authenticate(authenticationRequest));

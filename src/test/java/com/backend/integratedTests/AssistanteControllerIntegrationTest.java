@@ -28,8 +28,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AssistanteController.class)
+@SpringBootTest
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class AssistanteControllerIntegrationTest {
 
 
