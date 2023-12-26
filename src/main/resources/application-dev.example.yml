@@ -1,0 +1,13 @@
+# mail config
+MAIL_HOST: smtp.gmail.com
+MAIL_PORT: 587
+MAIL_ID: ayouboudada31@gmail.com
+MAIL_PASSWORD: ozlt avvb osmi keqq
+
+# db config
+DB_USERNAME: aod
+DB_PASSWORD: pass
+DB_NAME: secpickup
+
+# server config
+SERVER_PORT: 8080
