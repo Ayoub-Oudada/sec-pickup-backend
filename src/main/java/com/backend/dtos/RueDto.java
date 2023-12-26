@@ -1,12 +1,12 @@
 package com.backend.dtos;
 
-import com.backend.entities.Assistante;
 import com.backend.entities.Rue;
-import com.backend.entities.Trajet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Optional;
 
 @Data
 @Builder
@@ -16,7 +16,7 @@ public class RueDto {
 
     private Long id;
     private String lib_rue;
-    private TrajetDto trajet;
+//    private TrajetDto trajet;
 
     public static Rue toEntity(RueDto rueDto) {
         if (rueDto == null) {

@@ -1,8 +1,6 @@
 package com.backend.controllers;
 
 import com.backend.entities.User;
-import com.backend.entities.UserAccountType;
-import com.backend.repositories.UsersRepository;
 import com.backend.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,22 +15,55 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService userService;
+
     @Autowired
     public UsersController(UsersService userService) {
         this.userService = userService;
     }
 
+    @GetMapping("/users")
+    public List<User> GetUsers() {
+        return userService.GetUsers();
+    }
 
+    @PostMapping
+    public void registerNewUser(@RequestBody User user) {
+        userService.addNewUser(user);
+    }
 
+    @DeleteMapping(path = "{userId}")
+    public void deleteUser(@PathVariable("userId") Long UserId) {
+        userService.deleteUser(UserId);
+    }
+
+    @PutMapping(path = "{userId}")
+    public void updateUser(@PathVariable("userId") Long UserId,
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String password) {
+        userService.updateUser(UserId, username, password);
+    }
+    @PutMapping("/{userId}/updatePassword")
+    public ResponseEntity<String> updateUserPassword(
+            @PathVariable("userId") Long userId,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
+
+        userService.updateUserPassword(userId, oldPassword, newPassword);
+
+        return ResponseEntity.ok("Password updated successfully");
+    }
     @PostMapping("/Auth")
-    public ResponseEntity<String> findUser(@RequestParam String password, @RequestParam String username,@RequestParam UserAccountType type) {
-        try {
 
-            userService.FindUser(password, username,type);
-            return ResponseEntity.ok("Authentication successful");
+    public User findUser(@RequestBody User user) {
+        try {
+            userService.SearchUser(user.getPassword(), user.getUsername(), user.getType());
+            // userService.FindUser(password, username,type);
+            ResponseEntity.ok("Authentication successful");
+            return user;
         } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Authentication failed");
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Authentication failed");
         }
+        return null;
     }
 
 }

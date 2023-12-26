@@ -1,6 +1,7 @@
 package com.backend.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +24,9 @@ public class Situation extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Situations situation;
 
-    @ManyToMany
-    @JoinTable(
-            name = "eleves_situations",
-            joinColumns = @JoinColumn(name = "eleve_id"),
-            inverseJoinColumns = @JoinColumn(name = "situation_id")
-    )
+    @OneToMany(mappedBy = "situation")
+    @JsonIgnore
     private List<Eleve> eleves;
+
+
 }

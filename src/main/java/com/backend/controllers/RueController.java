@@ -4,12 +4,13 @@ import com.backend.dtos.RueDto;
 import com.backend.services.RueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rues")
+@RequestMapping("/api")
 public class RueController {
 
     private final RueService rueService;
@@ -32,6 +33,12 @@ public class RueController {
         return rueService.findAllRues();
     }
 
+    @PutMapping("/rues/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<RueDto> updateRue(@PathVariable Long id, @RequestBody RueDto updatedRueDto) {
+        RueDto updatedRue = rueService.updateRue(id, updatedRueDto);
+        return ResponseEntity.ok().body(updatedRue);
+    }
 
 
 }

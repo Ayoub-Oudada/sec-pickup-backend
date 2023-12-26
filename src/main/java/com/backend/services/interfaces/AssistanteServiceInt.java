@@ -1,7 +1,7 @@
 package com.backend.services.interfaces;
 
 import com.backend.dtos.AssistanteDto;
-import com.backend.entities.Assistante;
+
 import java.util.List;
 
 public interface AssistanteServiceInt {

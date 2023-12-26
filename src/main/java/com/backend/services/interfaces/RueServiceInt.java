@@ -12,5 +12,7 @@ public interface RueServiceInt {
 
     List<RueDto> findAllRues();
 
+    RueDto updateRue(Long id, RueDto rueDto);
+
     void deleteRue(Long id);
 }

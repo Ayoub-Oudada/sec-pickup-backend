@@ -8,7 +8,9 @@ import com.github.javafaker.Faker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,8 +23,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ParentsController.class)
+@SpringBootTest()
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class ParentControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -46,7 +49,7 @@ public class ParentControllerTest {
         when(parentsService.getAllParents()).thenReturn(List.of(parent));
 
         mockMvc
-                .perform(get("/api/parents/"))
+                .perform(get("/api/parents"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$[0].email", is(parent.getEmail())))

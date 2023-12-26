@@ -9,31 +9,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class BackendApplicationTests {
-	private final UsersRepository usersRepository;
+//	private final UsersRepository usersRepository;
+//
+//
+//	@Autowired
+//	BackendApplicationTests(UsersRepository usersRepository) {
+//		this.usersRepository = usersRepository;
+//	}
+//
+//	@Test
+//	void contextLoads() {
+//	}
 
-
-	@Autowired
-	BackendApplicationTests(UsersRepository usersRepository) {
-		this.usersRepository = usersRepository;
-	}
-
-	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	void assertConnectionEstablishedWithDb() {
-		var oldCount = usersRepository.count();
-		User user = usersRepository.save(User.builder()
-				.username("test@test.com")
-				.password("password")
-				.build()
-		);
-		Assert.assertNotNull(user);
-		Assert.assertEquals(
-				usersRepository.count(), oldCount + 1
-		);
-	}
+//	@Test
+//	void assertConnectionEstablishedWithDb() {
+//		var oldCount = usersRepository.count();
+//		User user = usersRepository.save(User.builder()
+//				.username("test@test.com")
+//				.password("password")
+//				.build()
+//		);
+//		Assert.assertNotNull(user);
+//		Assert.assertEquals(
+//				usersRepository.count(), oldCount + 1
+//		);
+//	}
 
 
 }

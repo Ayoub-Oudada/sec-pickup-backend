@@ -2,16 +2,21 @@ package com.backend.services;
 
 import com.backend.dtos.AssistanteDto;
 import com.backend.entities.Assistante;
+import com.backend.entities.User;
+import com.backend.entities.UserAccountType;
 import com.backend.repositories.AssistanteRepository;
+import com.backend.repositories.UsersRepository;
 import com.backend.services.interfaces.AssistanteServiceInt;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
@@ -19,18 +24,34 @@ import java.util.stream.Collectors;
 public class AssistanteService implements AssistanteServiceInt {
 
     private AssistanteRepository assistanteRepository;
+    private UsersRepository usersRepository;
+    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public AssistanteService(AssistanteRepository assistanteRepository)
+    public AssistanteService(AssistanteRepository assistanteRepository, UsersRepository usersRepository, PasswordEncoder passwordEncoder)
     {
         this.assistanteRepository = assistanteRepository;
+        this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public AssistanteDto save(AssistanteDto assistantedto)
     {
+        Assistante assistante = AssistanteDto.toEntity(assistantedto);
+
+        User user = new User();
+        user.setUsername(assistantedto.getEmail());
+        user.setType(UserAccountType.ASSISTANTE);
+        user.setPassword(passwordEncoder.encode("secpickup"));
+
+        User savedUser = usersRepository.save(user);
+        assistante.setUser(savedUser);
+
+        Assistante savedAssistante = assistanteRepository.save(assistante);
         return  AssistanteDto.fromEntity(
-                assistanteRepository.save(AssistanteDto.toEntity(assistantedto))
+                savedAssistante
         );
     }
 
@@ -51,7 +72,9 @@ public class AssistanteService implements AssistanteServiceInt {
 
     @Override
     public List<AssistanteDto> findAll() {
-        return assistanteRepository.findAll().stream()
+        return assistanteRepository.findAll(Sort.by(
+                        Sort.Direction.DESC,
+                        "createdAt")).stream()
                 .map(AssistanteDto::fromEntity)
                 .collect(Collectors.toList());
     }
@@ -61,7 +84,6 @@ public class AssistanteService implements AssistanteServiceInt {
         if(id == null)
         {
             log.error("Assistante Id is null");
-            return;
         }
         assistanteRepository.deleteById(id);
     }
@@ -82,9 +104,11 @@ public class AssistanteService implements AssistanteServiceInt {
                                 "Aucune assistante avec l'id = "+id+ " n'est trouvé dans la BDD"
                         )
                 );
+
         existingAssistante.setNom(assistanteDto.getNom());
         existingAssistante.setPrenom(assistanteDto.getPrenom());
         existingAssistante.setCni(assistanteDto.getCni());
+        existingAssistante.setEmail(assistanteDto.getEmail());
 
         Assistante assistante = assistanteRepository.save(existingAssistante);
 
