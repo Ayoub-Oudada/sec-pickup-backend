@@ -35,10 +35,10 @@ public class Eleve extends BaseEntity {
     @JsonBackReference
     private Parent parent;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "address_id")
-    private Address address;
+    // @ManyToOne
+    // @JsonIgnore
+    // @JoinColumn(name = "address_id")
+    // private Address address;
 
 
    @ManyToOne

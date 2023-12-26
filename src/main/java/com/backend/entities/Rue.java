@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Rue extends BaseEntity {
+
     private String lib_rue;
 
     @OneToMany(mappedBy = "rue")
