@@ -25,6 +25,7 @@ public class AuthController {
         usersRepository.save(User.builder()
                 .username("ayoub@test.com")
                 .password(passwordEncoder.encode("pass"))
+                .type(UserAccountType.ADMIN)
                 .build());
     }
 
