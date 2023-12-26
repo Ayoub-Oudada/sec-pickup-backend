@@ -13,6 +13,8 @@ public interface TrajetMapper {
 
     TrajetMapper INSTANCE = Mappers.getMapper(TrajetMapper.class);
 
+    TrajetDto trajetToTrajetDto(Trajet trajet);
+
     Trajet trajetDtoToTrajet(TrajetDto trajetDto);
 
     List<TrajetDto> trajetsToTrajetsDtos(List<Trajet> trajets);
