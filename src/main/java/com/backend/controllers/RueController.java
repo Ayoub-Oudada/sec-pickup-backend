@@ -1,5 +1,6 @@
 package com.backend.controllers;
 
+import com.backend.dtos.AssistanteDto;
 import com.backend.dtos.RueDto;
 import com.backend.services.RueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class RueController {
     }
 
 
+    @GetMapping(value = "/rues/{idRue}")
+    public RueDto findById(@PathVariable("idRue") Long idRue){
+        return rueService.findRueById(idRue);
+    }
+
     @GetMapping(value = "/rues")
     @ResponseStatus(HttpStatus.OK)
     public List<RueDto> findAllRues(){
@@ -34,7 +40,6 @@ public class RueController {
     }
 
     @PutMapping("/rues/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<RueDto> updateRue(@PathVariable Long id, @RequestBody RueDto updatedRueDto) {
         RueDto updatedRue = rueService.updateRue(id, updatedRueDto);
         return ResponseEntity.ok().body(updatedRue);

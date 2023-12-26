@@ -52,6 +52,9 @@ public class RueService implements RueServiceInt {
 
     @Override
     public RueDto updateRue(Long id, RueDto rueDto){
+
+        System.out.println(rueDto);
+
         if (id == null || rueDto == null) {
             throw new IllegalArgumentException("Invalid input for updating Rue");
         }
