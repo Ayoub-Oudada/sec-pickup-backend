@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/trajets")
 public class TrajetsController {
@@ -31,6 +32,13 @@ public class TrajetsController {
     public ResponseEntity<Object> index() {
         return ResponseEntity.ok(
                 trajetsService.getTrajets()
+        );
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Object> show(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                trajetsService.getTrajet(id)
         );
     }
 
