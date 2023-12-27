@@ -45,5 +45,9 @@ public class RueController {
         return ResponseEntity.ok().body(updatedRue);
     }
 
-
+    @DeleteMapping("/rues/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        rueService.deleteRue(id);
+        return ResponseEntity.noContent().build();
+    }
 }
