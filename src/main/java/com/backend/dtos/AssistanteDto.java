@@ -4,6 +4,10 @@ import com.backend.entities.Assistante;
 import com.backend.entities.Ecole;
 import com.backend.entities.Trajet;
 import com.backend.entities.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +26,16 @@ public class AssistanteDto {
     @NotNull(message = "Veuillez renseigner le cni de l'assistante")
     private String cni;
 
-    private Ecole ecole;
-    private User user;
-    private Trajet trajet;
+    @NotBlank
+    @Email
+    private String email;
+
+//    @Nullable
+//    private Ecole ecole;
+//    @Nullable
+//    private User user;
+//    @Nullable
+//    private Trajet trajet;
 
     public static Assistante toEntity(AssistanteDto assistanteDto) {
         if (assistanteDto == null) {
@@ -36,9 +47,10 @@ public class AssistanteDto {
         assistante.setNom(assistanteDto.getNom());
         assistante.setPrenom(assistanteDto.getPrenom());
         assistante.setCni(assistanteDto.getCni());
-        assistante.setEcole(assistanteDto.getEcole());
-        assistante.setUser(assistanteDto.getUser());
-        assistante.setTrajet(assistanteDto.getTrajet());
+        assistante.setEmail(assistanteDto.getEmail());
+//        assistante.setEcole(assistanteDto.getEcole());
+//        assistante.setUser(assistanteDto.getUser());
+//        assistante.setTrajet(assistanteDto.getTrajet());
 
         return assistante;
     }
@@ -54,9 +66,10 @@ public class AssistanteDto {
                 .nom(assistante.getNom())
                 .prenom(assistante.getPrenom())
                 .cni(assistante.getCni())
-                .ecole(assistante.getEcole())
-                .user(assistante.getUser())
-                .trajet(assistante.getTrajet())
+                .email(assistante.getEmail())
+//                .ecole(assistante.getEcole())
+//                .user(assistante.getUser())
+//                .trajet(assistante.getTrajet())
                 .build();
     }
 }

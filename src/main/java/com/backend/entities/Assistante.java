@@ -15,6 +15,8 @@ public class Assistante extends BaseEntity {
     private String nom;
     private String prenom;
     private String cni;
+    private String email;
+
 
     @ManyToOne
     @JoinColumn(name = "ecole_id")

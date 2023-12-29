@@ -36,6 +36,12 @@ public class TrajetsService {
         return TrajetMapper.INSTANCE.trajetsToTrajetsDtos(trajet);
     }
 
+    public TrajetDto getTrajet(Long id) {
+        var trajet = trajetsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("no trajet was found with the provided id!"));
+        return TrajetMapper.INSTANCE.trajetToTrajetDto(trajet);
+    }
+
     public void updateTrajet(Long id, TrajetDto trajetDto) {
         var trajet = trajetsRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("no trajet was found with the provided id!")

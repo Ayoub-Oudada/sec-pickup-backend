@@ -1,16 +1,12 @@
-package com.backend.integratedTests;
+package com.backend.controllers;
 
-import com.backend.controllers.AssistanteController;
 import com.backend.dtos.AssistanteDto;
 import com.backend.services.AssistanteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
@@ -28,10 +23,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AssistanteController.class)
+@SpringBootTest()
 @RunWith(SpringRunner.class)
-public class AssistanteControllerIntegrationTest {
-
+@AutoConfigureMockMvc(addFilters = false)
+public class AssistanteControllerTest {
 
     @InjectMocks
     private AssistanteController assistanteController;
@@ -44,6 +39,7 @@ public class AssistanteControllerIntegrationTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
     private Faker faker = new Faker();
 
     @Test
@@ -51,7 +47,8 @@ public class AssistanteControllerIntegrationTest {
         AssistanteDto assistante = createAssistante(
                 faker.name().firstName(),
                 faker.name().lastName(),
-                faker.code().asin()
+                faker.code().asin(),
+                faker.internet().emailAddress()
         );
 
         when(assistanteService.findAll()).thenReturn(List.of(assistante));
@@ -69,11 +66,11 @@ public class AssistanteControllerIntegrationTest {
         AssistanteDto assistante = createAssistante(
                 faker.name().firstName(),
                 faker.name().lastName(),
-                faker.code().asin()
+                faker.code().asin(),
+                faker.internet().emailAddress()
         );
-        System.out.println(assistante);
 
-        when(assistanteService.save(assistante)).thenReturn(null);
+        when(assistanteService.save(assistante)).thenReturn(assistante);
 
         mockMvc
                 .perform(post("/api/assistantes")
@@ -85,10 +82,11 @@ public class AssistanteControllerIntegrationTest {
 
     private AssistanteDto createAssistante(String prenom,
                                            String nom,
-                                           String cni) {
+                                           String cni, String email) {
         return AssistanteDto.builder()
                 .nom(nom)
                 .prenom(prenom)
+                .email(email)
                 .cni(cni)
                 .build();
     }

@@ -1,15 +1,38 @@
-
 spring:
+  profiles:
+    active: dev
+
   datasource:
-    username: root
-    password:
-    url: jdbc:mysql://localhost:3306/secpickupNew?createDatabaseIfNotExist=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/${DB_NAME}?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
+
+  mail:
+    host: ${MAIL_HOST}
+    username: ${MAIL_ID}
+    password: ${MAIL_PASSWORD}
+    port: ${MAIL_PORT}
+    default-encoding: utf-8
+    properties:
+      mime:
+        charset: UTF-8
+      mail:
+        smtp:
+          writetimeout: 10000
+          cnnectiontimeout: 1000
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
 server:
   address: 0.0.0.0
-  port: 8080
+  port: ${SERVER_PORT}
   error:
     include-message: always
