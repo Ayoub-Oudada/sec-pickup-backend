@@ -26,5 +26,5 @@ public class TrajetDto {
 
 //    private List<AssistanteDto> assistantes = new ArrayList<>();
 
-//    private List<Rue> rue = new ArrayList<>();
+    private List<RueDto> rues;
 }

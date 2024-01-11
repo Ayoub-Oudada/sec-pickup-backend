@@ -3,6 +3,7 @@ package com.backend.controllers;
 import com.backend.dtos.TrajetDto;
 import com.backend.services.TrajetsService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/trajets")
+@RequiredArgsConstructor
 public class TrajetsController {
     private final TrajetsService trajetsService;
 
-    public TrajetsController(TrajetsService trajetsService) {
-        this.trajetsService = trajetsService;
-    }
 
     @PostMapping
     public ResponseEntity<Void> store(@Valid @RequestBody TrajetDto request, UriComponentsBuilder uriComponentsBuilder) {
