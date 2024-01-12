@@ -69,26 +69,26 @@ public class UsersController {
         }
         return null;
     }
-//    @PostMapping
-//    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
-//        String username = request.get("username");
-//
-//        User user = userService.findByUsername(username);
-//
-//        if (user == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-//        }
-//
-//        // Retrieve the user's email
-//        String userEmail = user.getParent().getEmail();
-//
-//        // Send the existing password to the user's email
-//        String subject = "Password Retrieval";
-//        String body = "Your password is: " + user.getPassword();
-//        mailService.sendMail(userEmail, subject, body);
-//
-//        return ResponseEntity.ok("Password sent to the registered email address.");
-//    }
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
+
+        User user = userService.findByUsername(username);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+
+        // Retrieve the user's email
+        String userEmail = user.getEmail();
+
+        // Send the existing password to the user's email
+        String subject = "Password Retrieval";
+        String body = "Your password is: " + user.getPassword();
+        mailService.sendMail(userEmail, subject, body);
+
+        return ResponseEntity.ok("Password sent to the registered email address.");
+    }
 
 
 }
