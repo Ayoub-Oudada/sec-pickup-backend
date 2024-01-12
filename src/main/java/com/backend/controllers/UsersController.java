@@ -1,6 +1,7 @@
 package com.backend.controllers;
 
 import com.backend.entities.User;
+import com.backend.services.MailService;
 import com.backend.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -15,6 +17,8 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService userService;
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     public UsersController(UsersService userService) {
@@ -65,5 +69,26 @@ public class UsersController {
         }
         return null;
     }
+//    @PostMapping
+//    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
+//        String username = request.get("username");
+//
+//        User user = userService.findByUsername(username);
+//
+//        if (user == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        }
+//
+//        // Retrieve the user's email
+//        String userEmail = user.getParent().getEmail();
+//
+//        // Send the existing password to the user's email
+//        String subject = "Password Retrieval";
+//        String body = "Your password is: " + user.getPassword();
+//        mailService.sendMail(userEmail, subject, body);
+//
+//        return ResponseEntity.ok("Password sent to the registered email address.");
+//    }
+
 
 }
