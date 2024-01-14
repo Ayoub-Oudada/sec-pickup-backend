@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Entity
 @Table(name = "ecoles")
 @Data
@@ -15,6 +14,17 @@ import java.util.List;
 @NoArgsConstructor
 public class Ecole extends BaseEntity {
     private String service;
+
+    // New columns
+    private String nom;
+
+    @Column(name = "numero_telephone")
+    private String numeroTelephone;
+
+    private String email;
+
+    @Column(name = "site_web")
+    private String siteWeb;
 
     @OneToOne
     @JoinColumn(name = "user_id")
