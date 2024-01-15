@@ -2,8 +2,11 @@ package com.backend.services;
 
 
 import com.backend.dtos.EleveDto;
+import com.backend.dtos.SituationDto;
 import com.backend.entities.Eleve;
+import com.backend.entities.Situation;
 import com.backend.repositories.EleveRepository;
+import com.backend.repositories.SituationRepository;
 import com.backend.services.interfaces.EleveServiceInt;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +21,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EleveService implements EleveServiceInt {
     private EleveRepository eleveRepository;
+    //private SituationRepository situationRepository;
 
     @Autowired
     public EleveService(EleveRepository eleveRepository) {
         this.eleveRepository = eleveRepository;
+       // this.situationRepository = situationRepository;
     }
 
     @Override
@@ -68,14 +73,36 @@ public class EleveService implements EleveServiceInt {
                 .orElseThrow(() -> new RuntimeException("Eleve not found with id: " + id));
 
         // Update the fields of the existing Eleve entity with the new values from the EleveDto
-        existingEleve.setNom(updatedEleveDto.getNom());
-        existingEleve.setPrenom(updatedEleveDto.getPrenom());
-        existingEleve.setCne(updatedEleveDto.getCne());
-        existingEleve.setDateDeNaissance(updatedEleveDto.getDateDeNaissance());
-        existingEleve.setNiveau(updatedEleveDto.getNiveau());
-        existingEleve.setDomicile(updatedEleveDto.getDomicile());
-        existingEleve.setParent(updatedEleveDto.getParent());
-        existingEleve.setEcole(updatedEleveDto.getEcole());
+        if(updatedEleveDto.getNom() !=null){
+        existingEleve.setNom(updatedEleveDto.getNom());}
+        if(updatedEleveDto.getPrenom() !=null){
+        existingEleve.setPrenom(updatedEleveDto.getPrenom());}
+        if(updatedEleveDto.getCne() !=null){
+        existingEleve.setCne(updatedEleveDto.getCne());}
+        if(updatedEleveDto.getDateDeNaissance() !=null){
+        existingEleve.setDateDeNaissance(updatedEleveDto.getDateDeNaissance());}
+        if(updatedEleveDto.getNiveau() !=0){
+        existingEleve.setNiveau(updatedEleveDto.getNiveau());}
+        if(updatedEleveDto.getDomicile() !=null){
+        existingEleve.setDomicile(updatedEleveDto.getDomicile());}
+        if(updatedEleveDto.getPosition() !=null){
+        existingEleve.setPosition(updatedEleveDto.getPosition());}
+        if(updatedEleveDto.getParent() !=null){
+        existingEleve.setParent(updatedEleveDto.getParent());}
+        if(updatedEleveDto.getEcole() !=null){
+        existingEleve.setEcole(updatedEleveDto.getEcole());}
+
+        // Update the Situation field
+        if (updatedEleveDto.getSituation() != null) {
+            /*if (existingEleve.getSituation() == null) {
+                // If the existing situation is null, create a new Situation instance
+                existingEleve.setSituation(new Situation());
+            }
+
+             */
+           // existingEleve.getSituation().setSituation(updatedEleveDto.getSituation().getSituation());
+            existingEleve.setSituation(updatedEleveDto.getSituation());
+        }
 
         // Save the updated Eleve entity back to the database
         Eleve updatedEleve = eleveRepository.save(existingEleve);
@@ -83,4 +110,9 @@ public class EleveService implements EleveServiceInt {
         // Convert the updated Eleve entity to EleveDto and return it
         return EleveDto.fromEntity(updatedEleve);
     }
+
+
+
+
+
 }
