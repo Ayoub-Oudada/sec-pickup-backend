@@ -25,8 +25,9 @@ public class EleveDto {
     private Date dateDeNaissance;
     private int niveau;
     private String domicile;
+    private String position;
     private Parent parent;
-    private List<Situation> situations;
+    private Situation situation;
     private Ecole ecole;
     private Rue rue;
 
@@ -44,8 +45,10 @@ public class EleveDto {
         eleve.setDateDeNaissance(eleveDto.getDateDeNaissance());
         eleve.setNiveau(eleveDto.getNiveau());
         eleve.setDomicile(eleveDto.getDomicile());
+        eleve.setPosition(eleveDto.getPosition());
         eleve.setParent(eleveDto.getParent());
         eleve.setEcole(eleveDto.getEcole());
+        eleve.setSituation(eleveDto.getSituation());
 
         return eleve;
     }
@@ -64,8 +67,10 @@ public class EleveDto {
                 .dateDeNaissance(eleve.getDateDeNaissance())
                 .niveau(eleve.getNiveau())
                 .domicile(eleve.getDomicile())
+                .position(eleve.getPosition())
                 .parent(eleve.getParent())
                 .ecole(eleve.getEcole())
+                .situation(eleve.getSituation())
                 .build();
     }
 }

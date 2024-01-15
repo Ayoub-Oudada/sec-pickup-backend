@@ -27,6 +27,7 @@ public class Eleve extends BaseEntity {
     private int niveau;
     private String cne;
     private String domicile;
+    private String position;
 
 
 
@@ -40,8 +41,7 @@ public class Eleve extends BaseEntity {
     // @JoinColumn(name = "address_id")
     // private Address address;
 
-
-   @ManyToOne
+   @ManyToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "situation_id")
    //@JsonBackReference
    //@JsonIgnore
