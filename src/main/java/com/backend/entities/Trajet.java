@@ -23,5 +23,5 @@ public class Trajet extends BaseEntity {
     private List<Assistante> assistantes;
 
     @OneToMany(mappedBy = "trajet")
-    private List<Rue> rue;
+    private List<Rue> rues;
 }

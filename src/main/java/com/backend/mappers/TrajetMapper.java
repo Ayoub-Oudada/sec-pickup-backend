@@ -8,7 +8,9 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = RueMapper.class
+)
 public interface TrajetMapper {
 
     TrajetMapper INSTANCE = Mappers.getMapper(TrajetMapper.class);

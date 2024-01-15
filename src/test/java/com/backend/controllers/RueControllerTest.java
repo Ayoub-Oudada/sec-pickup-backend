@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,8 +34,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
-@WebMvcTest(RueController.class)
+@SpringBootTest
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class RueControllerTest {
 
     @InjectMocks
@@ -89,12 +92,12 @@ public class RueControllerTest {
 
         RueDto rueDto = createRue(faker.address().fullAddress());
 
-        doNothing().when(rueService).updateRue(1L, rueDto);
+        when(rueService.updateRue(1L, rueDto)).thenReturn(null);
 
         mockMvc.perform(put("/api/rues/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(rueDto)))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
     private RueDto createRue(String lib_rue) {
         return RueDto.builder()
