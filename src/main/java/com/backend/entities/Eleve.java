@@ -30,22 +30,21 @@ public class Eleve extends BaseEntity {
     private String position;
 
 
-
     @ManyToOne
     @JoinColumn(name = "parent_id")
     @JsonBackReference
     private Parent parent;
 
-    // @ManyToOne
-    // @JsonIgnore
-    // @JoinColumn(name = "address_id")
-    // private Address address;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "address_id")
+    private Address address;
 
-   @ManyToOne(cascade = CascadeType.PERSIST)
-   @JoinColumn(name = "situation_id")
-   //@JsonBackReference
-   //@JsonIgnore
-   private Situation situation;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "situation_id")
+    //@JsonBackReference
+    //@JsonIgnore
+    private Situation situation;
 
     @ManyToOne
     @JoinColumn(name = "ecole_id")
