@@ -60,10 +60,10 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Check SonarQube server reachability
-      run: ping sonarqube -c 4
-      env:
-        SONARQUBE_IP: ${{ job.services.sonarqube.ports[9000] }}
+    # - name: Check SonarQube server reachability
+    #   run: ping sonarqube -c 4
+    #   env:
+    #     SONARQUBE_IP: ${{ job.services.sonarqube.ports[9000] }}
 
     - name: Build and analyze
       env:
