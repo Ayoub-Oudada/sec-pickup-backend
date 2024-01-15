@@ -1,22 +1,13 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: secpickup
-
+name: Build
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master # the name of your main branch
   pull_request:
-    branches: [ "master" ]
-
+    types: [opened, synchronize, reopened]
 jobs:
   build:
-
+    name: Build
     runs-on: ubuntu-latest
 
     services:
@@ -29,15 +20,55 @@ jobs:
           MYSQL_USER: aod
           MYSQL_DATABASE: secpickup
           MYSQL_PASSWORD: pass
-
+          
+      sonarqube:
+        image: sonarqube:community
+        ports:
+          - 9000:9000
+        options: >-
+          --name sonarqube
+          -e SONARQUBE_JDBC_URL=jdbc:h2:tcp://sonarqube:9092/sonar
+          -e SONARQUBE_JDBC_USERNAME=sonar
+          -e SONARQUBE_JDBC_PASSWORD=sonar
+    
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn clean install
+
+    - name: Cache SonarQube packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.sonar/cache
+          target/sonar
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    # - name: Check SonarQube server reachability
+    #   run: ping sonarqube -c 4
+    #   env:
+    #     SONARQUBE_IP: ${{ job.services.sonarqube.ports[9000] }}
+
+    - name: Build and analyze
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: http://localhost:9000
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
