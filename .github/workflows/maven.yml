@@ -20,8 +20,9 @@ jobs:
           MYSQL_USER: aod
           MYSQL_DATABASE: secpickup
           MYSQL_PASSWORD: pass
+          
       sonarqube:
-        image: sonarqube
+        image: sonarqube:community
         ports:
           - 9000:9000
         env:
