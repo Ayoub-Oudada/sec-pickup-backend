@@ -61,7 +61,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Check SonarQube server reachability
-      run: ping $SONARQUBE_IP -c 4
+      run: ping sonarqube -c 4
       env:
         SONARQUBE_IP: ${{ job.services.sonarqube.ports[9000] }}
 
