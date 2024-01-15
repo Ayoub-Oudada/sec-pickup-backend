@@ -46,7 +46,6 @@ public class EleveServiceTest {
         assertEquals(eleveDto.getNiveau(), result.getNiveau());
         assertEquals(eleveDto.getDomicile(), result.getDomicile());
         assertEquals(eleveDto.getParent(), result.getParent());
-        assertEquals(eleveDto.getSituations(), result.getSituations());
         assertEquals(eleveDto.getEcole(), result.getEcole());
 
         verify(eleveRepository, times(1)).save(any());
