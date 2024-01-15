@@ -70,5 +70,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: http://localhost:9000
-      run: mvn -X verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
