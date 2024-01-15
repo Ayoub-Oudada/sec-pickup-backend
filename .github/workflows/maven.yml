@@ -9,6 +9,27 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_USER: aod
+          MYSQL_DATABASE: secpickup
+          MYSQL_PASSWORD: pass
+      sonarqube:
+        image: sonarqube
+        ports:
+          - 9000:9000
+        options: >-
+          --name sonarqube
+          -e SONARQUBE_JDBC_URL=jdbc:h2:tcp://sonarqube:9092/sonar
+          -e SONARQUBE_JDBC_USERNAME=sonar
+          -e SONARQUBE_JDBC_PASSWORD=sonar
+    
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,5 +56,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          # SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=http://sonarqube:9000 
+
