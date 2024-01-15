@@ -70,8 +70,7 @@ public class UsersController {
         return null;
     }
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
+    public ResponseEntity<String> forgotPassword(@RequestParam("username") String username) {
 
         User user = userService.findByUsername(username);
 
