@@ -18,4 +18,6 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.password = ?1 AND u.username = ?2 AND u.type = ?3")
     Optional<User> authenticate(String password, String username, UserAccountType type);
+
+    User findByUsername(String username);
 }

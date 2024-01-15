@@ -11,6 +11,7 @@ public class UserDto {
 
     private String username;
     private String password;
+    private String email;
 
     public static User toEntity(UserDto userDto) {
         if (userDto == null) {
@@ -20,6 +21,8 @@ public class UserDto {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+
 
         return user;
     }
@@ -33,6 +36,7 @@ public class UserDto {
         return UserDto.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
+                .email(user.getEmail())
                 .build();
     }
 
