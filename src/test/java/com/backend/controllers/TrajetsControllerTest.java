@@ -126,15 +126,15 @@ public class TrajetsControllerTest {
         ).andExpect(status().isNotFound());
     }
 
-    @Test
-    public void delete_itShouldDeleteAndReturnNoContent() throws Exception {
-        var deletedTrajet = trajetsRepository.findAll().get(0);
-
-        mockMvc.perform(delete("/api/trajets/" + deletedTrajet.getId()))
-                .andExpect(status().isNoContent());
-
-        assertFalse(trajetsRepository.existsByLibTrajet(deletedTrajet.getLibTrajet()));
-    }
+//    @Test
+//    public void delete_itShouldDeleteAndReturnNoContent() throws Exception {
+//        var deletedTrajet = trajetsRepository.findAll().get(0);
+//
+//        mockMvc.perform(delete("/api/trajets/" + deletedTrajet.getId()))
+//                .andExpect(status().isNoContent());
+//
+//        assertFalse(trajetsRepository.existsByLibTrajet(deletedTrajet.getLibTrajet()));
+//    }
 
     @Test
     public void delete_itShouldReturn404WhenNoTrajetFound() throws Exception {

@@ -3,6 +3,7 @@ package com.backend.controllers;
 import com.backend.dtos.AssistanteDto;
 import com.backend.dtos.RueDto;
 import com.backend.services.RueService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,26 +18,32 @@ public class RueController {
     private final RueService rueService;
 
     @Autowired
-    public RueController(RueService rueService){this.rueService = rueService;}
+    public RueController(RueService rueService) {
+        this.rueService = rueService;
+    }
 
 
     @PostMapping(value = "/rues")
     @ResponseStatus(HttpStatus.CREATED)
-    public RueDto saveRue(@RequestBody RueDto rueDto)
-    {
+    public RueDto saveRue(@RequestBody RueDto rueDto) {
         return rueService.saveRue(rueDto);
     }
 
 
     @GetMapping(value = "/rues/{idRue}")
-    public RueDto findById(@PathVariable("idRue") Long idRue){
+    public RueDto findById(@PathVariable("idRue") Long idRue) {
         return rueService.findRueById(idRue);
     }
 
     @GetMapping(value = "/rues")
     @ResponseStatus(HttpStatus.OK)
-    public List<RueDto> findAllRues(){
+    public List<RueDto> findAllRues() {
         return rueService.findAllRues();
+    }
+
+    @GetMapping("/rues/unattached")
+    public ResponseEntity<Object> getUnattachedRues() {
+        return ResponseEntity.ok(rueService.getUnattachedRues());
     }
 
     @PutMapping("/rues/{id}")
